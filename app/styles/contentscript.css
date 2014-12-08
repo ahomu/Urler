@@ -1,0 +1,20 @@
+#notifier {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2147483647;
+  width: 100%;
+  margin: auto;
+  padding: 15px 0;
+  background-color: rgba(0,0,0,0.6);
+  color: #fff;
+  font-size: 1.5em;
+  text-align: center;
+  -webkit-transition: opacity 0.15s linear;
+}
+
+.is-hidden {
+  opacity: 0;
+  z-index: -1 !important;
+}

@@ -1,0 +1,53 @@
+body {
+  padding: 5px 10px;
+  color: #333;
+}
+
+ul {
+  width: 150px;
+  margin: 0;
+  padding : 0;
+}
+
+li {
+  font-size: 1.1em;
+  padding: 5px 3px;
+  margin-bottom: 5px;
+  border-left: 2px solid #eee;
+  list-style-type: none;
+}
+
+li:hover {
+  border-left: 2px solid #999;
+  background-color: #f0f0f0;
+  cursor: pointer;
+}
+
+li span {
+  padding: 2px 3px;
+  border: 1px solid #eee;
+  background-color: #fafafa;
+  color: #111;
+}
+
+label {
+  display: inline-block;
+  padding: 5px 3px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+hr {
+  margin-bottom: 15px;
+  border: none;
+  border-bottom: 1px solid #999;
+  text-shadow: none;
+  box-shadow: none;
+}
+
+img {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  vertical-align: middle;
+}
