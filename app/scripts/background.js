@@ -1,7 +1,5 @@
 "use strict";
 
-console.log("'Allo 'Allo! Background script");
-
 chrome.runtime.onInstalled.addListener(function (details) {
   console.log("previousVersion", details.previousVersion);
 });
@@ -43,7 +41,7 @@ var listeners = {
       });
     });
   },
-  "ui:copy-ogp-url": function (req, sender, done) {
+  "ui:open-ogp-url": function (req, sender, done) {
     chrome.tabs.getSelected(null, function (currentTab) {
       chrome.tabs.sendMessage(currentTab.id, {
         type: "bg:request-og-url"
@@ -60,7 +58,7 @@ var listeners = {
       });
     });
   },
-  "ui:copy-ogp-image": function (req, sender, done) {
+  "ui:open-ogp-image": function (req, sender, done) {
     chrome.tabs.getSelected(null, function (currentTab) {
       chrome.tabs.sendMessage(currentTab.id, {
         type: "bg:request-og-image"
@@ -77,7 +75,7 @@ var listeners = {
       });
     });
   },
-  "ui:copy-canonical": function (req, sender, done) {
+  "ui:open-canonical": function (req, sender, done) {
     chrome.tabs.getSelected(null, function (currentTab) {
       chrome.tabs.sendMessage(currentTab.id, {
         type: "bg:request-canonical"
@@ -94,7 +92,7 @@ var listeners = {
       });
     });
   },
-  "ui:copy-fb-debugger": function (req, sender, done) {
+  "ui:open-fb-debugger": function (req, sender, done) {
     chrome.tabs.getSelected(null, function (currentTab) {
       window.open("https://developers.facebook.com/tools/debug/og/object?q=" + encodeURIComponent(currentTab.url));;
       done();
@@ -136,7 +134,7 @@ function saveToClipboard(str) {
 
 var formatter = {
   raw: function (param) {
-    return param.url;
+    return "" + param.title + " " + param.url;
   },
   anchor: function (param) {
     return "<a href=\"" + param.url + "\">" + param.title + "</a>";

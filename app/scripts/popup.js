@@ -6,52 +6,57 @@ var _toArray = function (arr) {
 
 "use strict";
 
-console.log("'Allo 'Allo! Popup script");
-
 var global = chrome.extension.getBackgroundPage();
 
 var listeners = {
   "change [type=\"radio\"]": function (e) {
     localStorage.setItem("lastSelected", e.target.value);
   },
-  "click #copy-tab-url": function () {
+  "click #copy-url-md": function () {
     chrome.runtime.sendMessage({
-      type: "ui:copy-tab-url",
-      format: getFormat()
+      type: "ui:copy-tab-" + (isAllTabsTargeted() ? "all" : "url"),
+      format: "markdown"
     });
     window.close();
   },
-  "click #copy-tab-all": function () {
+  "click #copy-url-a": function () {
     chrome.runtime.sendMessage({
-      type: "ui:copy-tab-all",
-      format: getFormat()
+      type: "ui:copy-tab-" + (isAllTabsTargeted() ? "all" : "url"),
+      format: "anchor"
     });
     window.close();
   },
-  "click #copy-ogp-url": function () {
+  "click #copy-url-raw": function () {
     chrome.runtime.sendMessage({
-      type: "ui:copy-ogp-url"
+      type: "ui:copy-tab-" + (isAllTabsTargeted() ? "all" : "url"),
+      format: "raw"
+    });
+    window.close();
+  },
+  "click #open-ogp-url": function () {
+    chrome.runtime.sendMessage({
+      type: "ui:open-ogp-url"
     }, function () {
       window.close();
     });
   },
-  "click #copy-ogp-image": function () {
+  "click #open-ogp-image": function () {
     chrome.runtime.sendMessage({
-      type: "ui:copy-ogp-image"
+      type: "ui:open-ogp-image"
     }, function () {
       window.close();
     });
   },
-  "click #copy-canonical": function () {
+  "click #open-canonical": function () {
     chrome.runtime.sendMessage({
-      type: "ui:copy-canonical"
+      type: "ui:open-canonical"
     }, function () {
       window.close();
     });
   },
-  "click #copy-fb-debugger": function () {
+  "click #open-fb-debugger": function () {
     chrome.runtime.sendMessage({
-      type: "ui:copy-fb-debugger"
+      type: "ui:open-fb-debugger"
     }, function () {
       window.close();
     });
@@ -60,8 +65,8 @@ var listeners = {
 
 var REX_EVENT_SPRITTER = /\s+/;
 
-function getFormat() {
-  return document.querySelector("input[name=\"format\"]:checked").value;
+function isAllTabsTargeted() {
+  return !!document.querySelector("input[name=\"target\"]:checked");
 }
 
 document.addEventListener("DOMContentLoaded", function () {

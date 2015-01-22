@@ -41,7 +41,7 @@ let listeners = {
       });
     });
   },
-  'ui:copy-ogp-url': function(req, sender, done) {
+  'ui:open-ogp-url': function(req, sender, done) {
     chrome.tabs.getSelected(null, (currentTab)=> {
       chrome.tabs.sendMessage(currentTab.id, {
         type: 'bg:request-og-url'
@@ -58,7 +58,7 @@ let listeners = {
       });
     });
   },
-  'ui:copy-ogp-image': function(req, sender, done) {
+  'ui:open-ogp-image': function(req, sender, done) {
     chrome.tabs.getSelected(null, (currentTab)=> {
       chrome.tabs.sendMessage(currentTab.id, {
         type: 'bg:request-og-image'
@@ -75,7 +75,7 @@ let listeners = {
       });
     });
   },
-  'ui:copy-canonical': function(req, sender, done) {
+  'ui:open-canonical': function(req, sender, done) {
     chrome.tabs.getSelected(null, (currentTab)=> {
       chrome.tabs.sendMessage(currentTab.id, {
         type: 'bg:request-canonical'
@@ -92,7 +92,7 @@ let listeners = {
       });
     });
   },
-  'ui:copy-fb-debugger': function(req, sender, done) {
+  'ui:open-fb-debugger': function(req, sender, done) {
     chrome.tabs.getSelected(null, (currentTab)=> {
       window.open('https://developers.facebook.com/tools/debug/og/object?q=' + encodeURIComponent(currentTab.url));;
       done()
@@ -134,7 +134,7 @@ function saveToClipboard(str) {
 
 let formatter = {
   raw: function(param) {
-    return param.url;
+    return `${param.title} ${param.url}`;
   },
   anchor: function(param) {
     return `<a href="${param.url}">${param.title}</a>`;

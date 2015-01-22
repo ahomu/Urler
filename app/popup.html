@@ -11,26 +11,25 @@
     <!-- endbuild -->
   </head>
   <body>
-    <p><img src="images/icon/copy31.png">Copy url</p>
+    <p><img src="images/icon/copy31.png">Copy Title & Url</p>
     <ul>
-      <li id="copy-tab-url">Copy <span>tab url</span></li>
-      <li id="copy-tab-all">Copy <span>all url</span></li>
+      <li id="copy-url-md">Copy as <span>.md</span></li>
+      <li id="copy-url-a">Copy as <span>&lt;a&gt;</span></li>
+      <li id="copy-url-raw">Copy as <span>(raw)</span></li>
     </ul>
 
     <div>
-      <label><input type="radio" name="format" value="markdown">.md</label>
-      <label><input type="radio" name="format" value="anchor">&lt;a&gt;</label>
-      <!--<label><input type="radio" name="format" value="raw">raw</label>-->
+      <label><input type="checkbox" name="target" value="all"> all tabs</label>
     </div>
 
     <hr>
 
     <p><img src="images/icon/eyeglasses22.png">Check &lt;meta|link&gt;</p>
     <ul>
-      <li id="copy-ogp-url">Open <span>ogp:url</span></li>
-      <li id="copy-ogp-image">Open <span>ogp:image</span></li>
-      <li id="copy-canonical">Open <span>canonical</span></li>
-      <li id="copy-fb-debugger">Open <span>fb debugger</span></li>
+      <li id="open-ogp-url">Open <span>ogp:url</span></li>
+      <li id="open-ogp-image">Open <span>ogp:image</span></li>
+      <li id="open-canonical">Open <span>canonical</span></li>
+      <li id="open-fb-debugger">Open <span>fb debugger</span></li>
     </ul>
 
     <!-- build:js scripts/vendor.js -->
