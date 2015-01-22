@@ -1,10 +1,8 @@
 'use strict';
 
-console.log('\'Allo \'Allo! Popup script');
+let global = chrome.extension.getBackgroundPage();
 
-var global = chrome.extension.getBackgroundPage();
-
-var listeners = {
+let listeners = {
   'change [type="radio"]': function(e) {
     localStorage.setItem('lastSelected', e.target.value);
   },
@@ -62,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // listeners
   Object.keys(listeners).forEach((eventAndSelector)=> {
-    var [event, selector] = eventAndSelector.split(REX_EVENT_SPRITTER),
+    let [event, selector] = eventAndSelector.split(REX_EVENT_SPRITTER),
         delegated, listener;
 
     listener = listeners[eventAndSelector];
@@ -71,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // checked
-  var lastSelected = localStorage.getItem('lastSelected') || 'markdown';
+  let lastSelected = localStorage.getItem('lastSelected') || 'markdown';
   console.info(lastSelected);
   document.querySelector(`[type="radio"][value="${lastSelected}"]`).setAttribute('checked', true);
 
@@ -80,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
      * @param {Event} evt
      */
     return function(evt) {
-      var host   = evt.currentTarget,
+      let host   = evt.currentTarget,
           target = evt.target;
 
       do {

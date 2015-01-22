@@ -1,8 +1,6 @@
 'use strict';
 
-console.log('\'Allo \'Allo! Content script');
-
-var dialog;
+let dialog;
 
 /**
  * dialog insertion
@@ -17,21 +15,21 @@ document.addEventListener('DOMContentLoaded', function() {
 /**
  * listeners
  */
-var listeners = {
+let listeners = {
   'bg:request-og-url': function(req, sender, done) {
-    var meta = document.querySelector('meta[property="og:url"]');
+    let meta = document.querySelector('meta[property="og:url"]');
     done({
       url: meta ? meta.getAttribute('content') : null
     });
   },
   'bg:request-og-image': function(req, sender, done) {
-    var meta = document.querySelector('meta[property="og:image"]');
+    let meta = document.querySelector('meta[property="og:image"]');
     done({
       url: meta ? meta.getAttribute('content') : null
     });
   },
   'bg:request-canonical': function(req, sender, done) {
-    var link = document.querySelector('link[rel="canonical"]');
+    let link = document.querySelector('link[rel="canonical"]');
     done({
       url: link ? link.getAttribute('href') : null
     });

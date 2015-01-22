@@ -1,17 +1,15 @@
 'use strict';
 
-console.log('\'Allo \'Allo! Background script');
-
 chrome.runtime.onInstalled.addListener(function(details) {
   console.log('previousVersion', details.previousVersion);
 });
 
 // ui:chain-case, content:chain-case
-var listeners = {
+let listeners = {
   'ui:copy-tab-url': function(req, sender, done) {
     // give null when current tab is default....holy shit!!!!!!
     chrome.tabs.getSelected(null, (currentTab)=> {
-      var text = formatter[req.format]({
+      let text = formatter[req.format]({
         title : currentTab.title,
         url   : currentTab.url
       });
@@ -25,7 +23,7 @@ var listeners = {
   },
   'ui:copy-tab-all': function(req, sender, done) {
     chrome.tabs.getAllInWindow(null, (tabs)=> {
-      var i = 0, currentTab, tab, text = [];
+      let i = 0, currentTab, tab, text = [];
       while((tab = tabs[i++])) {
         text.push(formatter[req.format]({
           title : tab.title,
@@ -122,7 +120,7 @@ chrome.runtime.onMessage.addListener(function(req, sender, reply) {
  * @param str
  */
 function saveToClipboard(str) {
-  var textArea = document.createElement('textarea');
+  let textArea = document.createElement('textarea');
   textArea.style.cssText = 'position:absolute; left:-100%';
 
   document.body.appendChild(textArea);
@@ -134,7 +132,7 @@ function saveToClipboard(str) {
   document.body.removeChild(textArea);
 }
 
-var formatter = {
+let formatter = {
   raw: function(param) {
     return param.url;
   },
