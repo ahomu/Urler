@@ -54,6 +54,14 @@ let listeners = {
     }, function() {
       window.close();
     });
+  },
+  'click #open-structured-data': function() {
+    console.log('hogehoge');
+    chrome.runtime.sendMessage({
+      type   : 'ui:open-structured-data'
+    }, function() {
+      window.close();
+    });
   }
 };
 
@@ -74,11 +82,6 @@ document.addEventListener('DOMContentLoaded', function() {
     delegated = createHandler(selector, listener);
     document.body.addEventListener(event, delegated, true);
   });
-
-  // checked
-  let lastSelected = localStorage.getItem('lastSelected') || 'markdown';
-  console.info(lastSelected);
-  document.querySelector(`[type="radio"][value="${lastSelected}"]`).setAttribute('checked', true);
 
   function createHandler(selector, handler) {
     /**

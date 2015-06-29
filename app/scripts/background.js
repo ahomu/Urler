@@ -97,6 +97,12 @@ var listeners = {
       window.open("https://developers.facebook.com/tools/debug/og/object?q=" + encodeURIComponent(currentTab.url));;
       done();
     });
+  },
+  "ui:open-structured-data": function (req, sender, done) {
+    chrome.tabs.getSelected(null, function (currentTab) {
+      window.open("https://developers.google.com/structured-data/testing-tool/?url=" + encodeURIComponent(currentTab.url));;
+      done();
+    });
   }
 };
 
