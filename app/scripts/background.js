@@ -23,8 +23,11 @@ var listeners = {
   },
   "ui:copy-tab-all": function (req, sender, done) {
     chrome.tabs.getAllInWindow(null, function (tabs) {
-      var i = 0, currentTab, tab, text = [];
-      while ((tab = tabs[i++])) {
+      var i = 0,
+          currentTab = undefined,
+          tab = undefined,
+          text = [];
+      while (tab = tabs[i++]) {
         text.push(formatter[req.format]({
           title: tab.title,
           url: tab.url
@@ -41,7 +44,7 @@ var listeners = {
       });
     });
   },
-  "ui:open-ogp-url": function (req, sender, done) {
+  "ui:open-og-url": function (req, sender, done) {
     chrome.tabs.getSelected(null, function (currentTab) {
       chrome.tabs.sendMessage(currentTab.id, {
         type: "bg:request-og-url"
@@ -49,7 +52,7 @@ var listeners = {
         if (resp.url == null) {
           chrome.tabs.sendMessage(currentTab.id, {
             type: "bg:dialog-notice",
-            message: "<meta property=\"ogp:url\"> not found..."
+            message: "<meta property=\"og:url\"> not found..."
           });
         } else {
           window.open(resp.url);;
@@ -58,7 +61,7 @@ var listeners = {
       });
     });
   },
-  "ui:open-ogp-image": function (req, sender, done) {
+  "ui:open-og-image": function (req, sender, done) {
     chrome.tabs.getSelected(null, function (currentTab) {
       chrome.tabs.sendMessage(currentTab.id, {
         type: "bg:request-og-image"
@@ -66,7 +69,41 @@ var listeners = {
         if (resp.url == null) {
           chrome.tabs.sendMessage(currentTab.id, {
             type: "bg:dialog-notice",
-            message: "<meta property=\"ogp:image\"> not found..."
+            message: "<meta property=\"og:image\"> not found..."
+          });
+        } else {
+          window.open(resp.url);;
+        }
+        done();
+      });
+    });
+  },
+  "ui:open-twitter-url": function (req, sender, done) {
+    chrome.tabs.getSelected(null, function (currentTab) {
+      chrome.tabs.sendMessage(currentTab.id, {
+        type: "bg:request-twitter-url"
+      }, function (resp) {
+        if (resp.url == null) {
+          chrome.tabs.sendMessage(currentTab.id, {
+            type: "bg:dialog-notice",
+            message: "<meta name=\"twitter:url\"> not found..."
+          });
+        } else {
+          window.open(resp.url);;
+        }
+        done();
+      });
+    });
+  },
+  "ui:open-twitter-image": function (req, sender, done) {
+    chrome.tabs.getSelected(null, function (currentTab) {
+      chrome.tabs.sendMessage(currentTab.id, {
+        type: "bg:request-twitter-image"
+      }, function (resp) {
+        if (resp.url == null) {
+          chrome.tabs.sendMessage(currentTab.id, {
+            type: "bg:dialog-notice",
+            message: "<meta name=\"twitter:image\"> not found..."
           });
         } else {
           window.open(resp.url);;

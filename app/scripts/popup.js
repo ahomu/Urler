@@ -1,10 +1,20 @@
 "use strict";
 
-var _toArray = function (arr) {
-  return Array.isArray(arr) ? arr : Array.from(arr);
-};
+var _slicedToArray = function (arr, i) {
+  if (Array.isArray(arr)) {
+    return arr;
+  } else {
+    var _arr = [];
 
-"use strict";
+    for (var _iterator = arr[Symbol.iterator](), _step; !(_step = _iterator.next()).done;) {
+      _arr.push(_step.value);
+
+      if (i && _arr.length === i) break;
+    }
+
+    return _arr;
+  }
+};
 
 var global = chrome.extension.getBackgroundPage();
 
@@ -33,16 +43,30 @@ var listeners = {
     });
     window.close();
   },
-  "click #open-ogp-url": function () {
+  "click #open-og-url": function () {
     chrome.runtime.sendMessage({
-      type: "ui:open-ogp-url"
+      type: "ui:open-og-url"
     }, function () {
       window.close();
     });
   },
-  "click #open-ogp-image": function () {
+  "click #open-og-image": function () {
     chrome.runtime.sendMessage({
-      type: "ui:open-ogp-image"
+      type: "ui:open-og-image"
+    }, function () {
+      window.close();
+    });
+  },
+  "click #open-twitter-url": function () {
+    chrome.runtime.sendMessage({
+      type: "ui:open-twitter-url"
+    }, function () {
+      window.close();
+    });
+  },
+  "click #open-twitter-image": function () {
+    chrome.runtime.sendMessage({
+      type: "ui:open-twitter-image"
     }, function () {
       window.close();
     });
@@ -60,6 +84,14 @@ var listeners = {
     }, function () {
       window.close();
     });
+  },
+  "click #open-structured-data": function () {
+    console.log("hogehoge");
+    chrome.runtime.sendMessage({
+      type: "ui:open-structured-data"
+    }, function () {
+      window.close();
+    });
   }
 };
 
@@ -70,34 +102,13 @@ function isAllTabsTargeted() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  // listeners
-  Object.keys(listeners).forEach(function (eventAndSelector) {
-    var _ref = eventAndSelector.split(REX_EVENT_SPRITTER);
-
-    var _ref2 = _toArray(_ref);
-
-    var event = _ref2[0];
-    var selector = _ref2[1];
-    var delegated;
-    var listener;
-
-
-    listener = listeners[eventAndSelector];
-    delegated = createHandler(selector, listener);
-    document.body.addEventListener(event, delegated, true);
-  });
-
-  // checked
-  var lastSelected = localStorage.getItem("lastSelected") || "markdown";
-  console.info(lastSelected);
-  document.querySelector("[type=\"radio\"][value=\"" + lastSelected + "\"]").setAttribute("checked", true);
-
-  function createHandler(selector, handler) {
+  var createHandler = function (selector, handler) {
     /**
      * @param {Event} evt
      */
     return function (evt) {
-      var host = evt.currentTarget, target = evt.target;
+      var host = evt.currentTarget,
+          target = evt.target;
 
       do {
         if (target === host) {
@@ -108,7 +119,22 @@ document.addEventListener("DOMContentLoaded", function () {
           handler.apply(this, arguments);
           break;
         }
-      } while ((target = target.parentNode));
+      } while (target = target.parentNode);
     };
-  }
+  };
+
+  // listeners
+  Object.keys(listeners).forEach(function (eventAndSelector) {
+    var _eventAndSelector$split = eventAndSelector.split(REX_EVENT_SPRITTER);
+
+    var _eventAndSelector$split2 = _slicedToArray(_eventAndSelector$split, 2);
+
+    var event = _eventAndSelector$split2[0];
+    var selector = _eventAndSelector$split2[1];
+    var delegated = undefined;var listener = undefined;
+
+    listener = listeners[eventAndSelector];
+    delegated = createHandler(selector, listener);
+    document.body.addEventListener(event, delegated, true);
+  });
 });

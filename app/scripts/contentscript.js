@@ -1,6 +1,6 @@
 "use strict";
 
-var dialog;
+var dialog = undefined;
 
 /**
  * dialog insertion
@@ -24,6 +24,18 @@ var listeners = {
   },
   "bg:request-og-image": function (req, sender, done) {
     var meta = document.querySelector("meta[property=\"og:image\"]");
+    done({
+      url: meta ? meta.getAttribute("content") : null
+    });
+  },
+  "bg:request-twitter-url": function (req, sender, done) {
+    var meta = document.querySelector("meta[name=\"twitter:url\"]");
+    done({
+      url: meta ? meta.getAttribute("content") : null
+    });
+  },
+  "bg:request-twitter-image": function (req, sender, done) {
+    var meta = document.querySelector("meta[name=\"twitter:image\"]");
     done({
       url: meta ? meta.getAttribute("content") : null
     });

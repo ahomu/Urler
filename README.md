@@ -10,8 +10,11 @@
 - Copy all open tab urls
 - Open `<meta property="ogp:url">`
 - Open `<meta property="ogp:image">`
+- Open `<meta name="twitter:url">`
+- Open `<meta name="twitter:image">`
 - Open `<link rel="canonical">`
-- Open facebook debugger with current tab's url
+- Open [Facebook Debugger](https://developers.facebook.com/tools/debug/) with current tab's url
+- Open [Structured Data Testing Tool](https://developers.google.com/structured-data/testing-tool/) with current tab's url
 
 ## Images
 
