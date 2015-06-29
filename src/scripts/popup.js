@@ -27,16 +27,30 @@ let listeners = {
     });
     window.close();
   },
-  'click #open-ogp-url': function() {
+  'click #open-og-url': function() {
     chrome.runtime.sendMessage({
-      type   : 'ui:open-ogp-url'
+      type   : 'ui:open-og-url'
     }, function() {
       window.close();
     });
   },
-  'click #open-ogp-image': function() {
+  'click #open-og-image': function() {
     chrome.runtime.sendMessage({
-      type   : 'ui:open-ogp-image'
+      type   : 'ui:open-og-image'
+    }, function() {
+      window.close();
+    });
+  },
+  'click #open-twitter-url': function() {
+    chrome.runtime.sendMessage({
+      type   : 'ui:open-twitter-url'
+    }, function() {
+      window.close();
+    });
+  },
+  'click #open-twitter-image': function() {
+    chrome.runtime.sendMessage({
+      type   : 'ui:open-twitter-image'
     }, function() {
       window.close();
     });

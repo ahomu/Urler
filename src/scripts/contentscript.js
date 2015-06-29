@@ -28,6 +28,18 @@ let listeners = {
       url: meta ? meta.getAttribute('content') : null
     });
   },
+  'bg:request-twitter-url': function(req, sender, done) {
+    let meta = document.querySelector('meta[name="twitter:url"]');
+    done({
+      url: meta ? meta.getAttribute('content') : null
+    });
+  },
+  'bg:request-twitter-image': function(req, sender, done) {
+    let meta = document.querySelector('meta[name="twitter:image"]');
+    done({
+      url: meta ? meta.getAttribute('content') : null
+    });
+  },
   'bg:request-canonical': function(req, sender, done) {
     let link = document.querySelector('link[rel="canonical"]');
     done({

@@ -41,7 +41,7 @@ let listeners = {
       });
     });
   },
-  'ui:open-ogp-url': function(req, sender, done) {
+  'ui:open-og-url': function(req, sender, done) {
     chrome.tabs.getSelected(null, (currentTab)=> {
       chrome.tabs.sendMessage(currentTab.id, {
         type: 'bg:request-og-url'
@@ -49,7 +49,7 @@ let listeners = {
         if (resp.url == null) {
           chrome.tabs.sendMessage(currentTab.id, {
             type    : 'bg:dialog-notice',
-            message : '<meta property="ogp:url"> not found...'
+            message : '<meta property="og:url"> not found...'
           });
         } else {
           window.open(resp.url);;
@@ -58,7 +58,7 @@ let listeners = {
       });
     });
   },
-  'ui:open-ogp-image': function(req, sender, done) {
+  'ui:open-og-image': function(req, sender, done) {
     chrome.tabs.getSelected(null, (currentTab)=> {
       chrome.tabs.sendMessage(currentTab.id, {
         type: 'bg:request-og-image'
@@ -66,7 +66,41 @@ let listeners = {
         if (resp.url == null) {
           chrome.tabs.sendMessage(currentTab.id, {
             type    : 'bg:dialog-notice',
-            message : '<meta property="ogp:image"> not found...'
+            message : '<meta property="og:image"> not found...'
+          });
+        } else {
+          window.open(resp.url);;
+        }
+        done();
+      });
+    });
+  },
+  'ui:open-twitter-url': function(req, sender, done) {
+    chrome.tabs.getSelected(null, (currentTab)=> {
+      chrome.tabs.sendMessage(currentTab.id, {
+        type: 'bg:request-twitter-url'
+      }, (resp)=> {
+        if (resp.url == null) {
+          chrome.tabs.sendMessage(currentTab.id, {
+            type    : 'bg:dialog-notice',
+            message : '<meta name="twitter:url"> not found...'
+          });
+        } else {
+          window.open(resp.url);;
+        }
+        done()
+      });
+    });
+  },
+  'ui:open-twitter-image': function(req, sender, done) {
+    chrome.tabs.getSelected(null, (currentTab)=> {
+      chrome.tabs.sendMessage(currentTab.id, {
+        type: 'bg:request-twitter-image'
+      }, (resp)=> {
+        if (resp.url == null) {
+          chrome.tabs.sendMessage(currentTab.id, {
+            type    : 'bg:dialog-notice',
+            message : '<meta name="twitter:image"> not found...'
           });
         } else {
           window.open(resp.url);;
